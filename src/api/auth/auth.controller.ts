@@ -5,8 +5,9 @@ import {
   Body,
   HttpCode,
   HttpStatus,
-  UseGuards, Req
-} from "@nestjs/common";
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { AuthDto } from './dto/auth.dto';

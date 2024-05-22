@@ -34,7 +34,9 @@ export class UsersService {
   }
 
   async findAll(): Promise<UserEntity[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: [],
+    });
   }
 
   async findOne(id: number): Promise<UserEntity> {
@@ -44,6 +46,6 @@ export class UsersService {
   }
 
   remove(id: number) {
-    return this.repository.delete(id)
+    return this.repository.delete(id);
   }
 }

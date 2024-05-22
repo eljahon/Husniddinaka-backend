@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsEnum, IsNotEmpty, IsString, MinLength } from "class-validator";
-import { Gender } from "../../../enums";
+import {
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { Gender } from '../../../enums';
 
 export class RegisterDto {
   @IsNotEmpty()

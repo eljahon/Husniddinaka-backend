@@ -1,22 +1,44 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Req,
+  Query,
+} from '@nestjs/common';
 import { EventsService } from './events.service';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
-import { ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { StartEventDto } from './dto/start-event.dto';
+import { StopEventDto } from './dto/stop-event.dto';
+import { RoleEnabled } from '../../decorators/accessRole.decorator';
+import { PaginationDto, PaginationResult } from '../../commons/pagination.dto';
+import { EventEntity } from './entities/event.entity';
 
 @Controller('events')
 @ApiTags('events')
+@ApiBearerAuth()
+@RoleEnabled('user')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
-  @Post()
-  create(@Body() createEventDto: CreateEventDto) {
-    return this.eventsService.create(createEventDto);
+  @Post('start')
+  async startEvent(@Req() req, @Body() startDto: StartEventDto) {
+    return await this.eventsService.start(req.user, startDto);
+  }
+
+  @Post('stop')
+  async stopEvent(@Req() req, @Body() stopDto: StopEventDto) {
+    return await this.eventsService.stop(req.user, stopDto);
   }
 
   @Get()
-  findAll() {
-    return this.eventsService.findAll();
+  async findAll(
+    @Req() req,
+    @Query() paginationQuery: PaginationDto,
+  ): Promise<PaginationResult<EventEntity>> {
+    return await this.eventsService.findAll(req.user, paginationQuery);
   }
 
   @Delete(':id')

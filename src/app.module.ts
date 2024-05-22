@@ -6,7 +6,11 @@ import { UserEntity } from './api/users/entities/user.entity';
 import { EventCategoriesModule } from './api/event-categories/event-categories.module';
 import { EventTempsModule } from './api/event-temps/event-temps.module';
 import { EventsModule } from './api/events/events.module';
-import { FavoriteEventsModule } from './api/favorite-events/favorite-events.module';
+// import { FavoriteEventsModule } from './api/favorite-events/favorite-events.module';
+import { EventCategoryEntity } from './api/event-categories/entities/event-category.entity';
+import { EventEntity } from './api/events/entities/event.entity';
+import { EventTempEntity } from './api/event-temps/entities/event-temp.entity';
+// import { FavoriteEventEntity } from './api/favorite-events/entities/favorite-event.entity';
 
 @Module({
   imports: [
@@ -17,7 +21,7 @@ import { FavoriteEventsModule } from './api/favorite-events/favorite-events.modu
       username: 'oybek',
       password: '1024',
       database: 'gtm',
-      entities: [UserEntity],
+      entities: [UserEntity, EventCategoryEntity, EventEntity, EventTempEntity],
       synchronize: true,
     }),
     UsersModule,
@@ -25,7 +29,6 @@ import { FavoriteEventsModule } from './api/favorite-events/favorite-events.modu
     EventCategoriesModule,
     EventTempsModule,
     EventsModule,
-    FavoriteEventsModule,
   ],
 })
 export class AppModule {}

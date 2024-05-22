@@ -1,7 +1,14 @@
-import { Column, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { UserEntity } from "../../users/entities/user.entity";
-import { EventCategoryEntity } from "../../event-categories/entities/event-category.entity";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { EventCategoryEntity } from '../../event-categories/entities/event-category.entity';
+import { UserEntity } from '../../users/entities/user.entity';
 
+@Entity({ name: 'eventTemps' })
 export class EventTempEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,9 +16,15 @@ export class EventTempEntity {
   @Column()
   title: string;
 
-  @OneToOne(() => EventCategoryEntity, { onDelete: 'CASCADE' })
+  @ManyToOne(() => EventCategoryEntity, (category) => category.id, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   eventCategory: EventCategoryEntity;
+
+  @ManyToOne(() => UserEntity, (user) => user.id, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  user: UserEntity;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

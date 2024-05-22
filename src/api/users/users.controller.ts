@@ -1,7 +1,7 @@
-import { Controller, Get, Param, Delete, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { RoleEnabled } from "../../decorators/accessRole.decorator";
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { RoleEnabled } from '../../decorators/accessRole.decorator';
 
 @ApiTags('users')
 @Controller('users')

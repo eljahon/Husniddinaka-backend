@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { FavoriteEventsService } from './favorite-events.service';
 import { CreateFavoriteEventDto } from './dto/create-favorite-event.dto';
-import { ApiTags } from "@nestjs/swagger";
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('favorite-events')
 @ApiTags('favorite-events')

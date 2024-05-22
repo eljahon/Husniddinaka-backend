@@ -1,10 +1,13 @@
-import { IsInt, IsNotEmpty } from "class-validator";
-import { ApiProperty } from "@nestjs/swagger";
+import { IsInt, IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateFavoriteEventDto {
   @IsNotEmpty()
   @IsInt()
-  @ApiProperty({ example: 1, description: 'The event id of the favorite event' })
+  @ApiProperty({
+    example: 1,
+    description: 'The event id of the favorite event',
+  })
   eventTemp: number;
 
   @IsNotEmpty()
