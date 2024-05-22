@@ -13,7 +13,7 @@ async function bootstrap() {
     .setDescription('Yapon shoiri lalula')
     .setVersion('3.0')
     .addServer('http://localhost:3000')
-    .addServer('https://api.example.com')
+    .addServer('https://api.gtm.kebyo.me')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
