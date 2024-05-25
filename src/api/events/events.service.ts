@@ -36,9 +36,9 @@ export class EventsService {
   }
 
   async start(user: UserEntity, startDto: StartEventDto): Promise<EventEntity> {
-    dayjs.extend(utc);
-    dayjs.extend(timezone);
-    const now = dayjs().tz('Asia/Tashkent').format('YYYY-MM-DD HH:mm:ss');
+    // dayjs.extend(utc);
+    // dayjs.extend(timezone);
+    // const now = dayjs().tz('Asia/Tashkent').format('YYYY-MM-DD HH:mm:ss');
 
     const eventTemp = await this.eventTempService.findOne(startDto.eventTemp);
 
@@ -57,11 +57,10 @@ export class EventsService {
 
     const data = {
       user: user,
-      serverStart: now,
+      serverStart: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       start: startDto.start,
       eventTemp,
     };
-    console.log(data);
     const event = this.repository.create(data);
     return this.repository.save(event);
   }

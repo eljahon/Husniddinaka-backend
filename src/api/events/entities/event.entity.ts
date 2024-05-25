@@ -13,16 +13,16 @@ export class EventEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'time with time zone' })
   start: Date;
 
-  @Column({ nullable: true })
+  @Column({ type: 'time with time zone', nullable: true })
   end: Date;
 
-  @Column()
+  @Column({ type: 'time with time zone' })
   serverStart: Date;
 
-  @Column({ nullable: true })
+  @Column({ type: 'time with time zone', nullable: true })
   serverEnd: Date;
 
   @Column({ default: true })
@@ -47,6 +47,6 @@ export class EventEntity {
   @JoinColumn()
   parentEvent: EventEntity;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 }
