@@ -19,6 +19,12 @@ export class EventsService {
     private readonly eventTempService: EventTempsService,
   ) {}
 
+  async active(user: UserEntity): Promise<EventEntity> {
+    return await this.repository.findOne({
+      where: { user: { id: user.id }, end: null, processing: true },
+    });
+  }
+
   async start(user: UserEntity, startDto: StartEventDto): Promise<EventEntity> {
     dayjs.extend(utc);
     dayjs.extend(timezone);
