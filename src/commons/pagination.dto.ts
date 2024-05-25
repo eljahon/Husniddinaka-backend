@@ -10,9 +10,10 @@ export class PaginationDto {
     default: 1,
     description: 'Page number',
   })
+  @IsOptional()
   @IsInt({ message: 'Page number must be an integer' })
   @Min(1)
-  page?: number;
+  page: number = 1;
 
   @Transform(({ value }) => parseInt(value))
   @ApiProperty({
@@ -20,18 +21,20 @@ export class PaginationDto {
     default: 10,
     description: 'Page size',
   })
+  @IsOptional()
   @IsInt({ message: 'Page size must be an integer' })
   @Min(1)
   @Max(100)
-  pageSize?: number;
+  pageSize: number = 10;
 
   @ApiProperty({
     required: false,
     default: 'id',
     description: 'Order by',
   })
+  @IsOptional()
   @IsString({ message: 'Sort by must be a string' })
-  orderBy?: string;
+  orderBy: string = 'id';
 
   @ApiProperty({
     required: false,
@@ -39,9 +42,10 @@ export class PaginationDto {
     description: 'Order direction',
     enum: SortOrder,
   })
+  @IsOptional()
   @IsEnum(SortOrder, { message: 'Sort direction must be ASC or DESC' })
   @IsOptional()
-  sortBy?: SortOrder = SortOrder.ASC;
+  sortBy: SortOrder = SortOrder.ASC;
 }
 
 export class PaginationResult<T> {
