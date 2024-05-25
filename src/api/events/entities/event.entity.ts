@@ -13,16 +13,16 @@ export class EventEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   start: Date;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   end: Date;
 
-  @Column({ type: 'timestamptz', })
+  @Column({ type: 'timestamp' })
   serverStart: Date;
 
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   serverEnd: Date;
 
   @Column({ default: true })
