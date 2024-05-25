@@ -29,6 +29,8 @@ export class EventsService {
   }
 
   async serverTime() {
+    dayjs.extend(utc);
+    dayjs.extend(timezone);
     return { time: dayjs().tz('Asia/Tashkent').format('HH:mm:ss YYYY-MM-DD') };
   }
 
