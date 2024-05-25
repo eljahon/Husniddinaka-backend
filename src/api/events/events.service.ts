@@ -19,15 +19,17 @@ export class EventsService {
     private readonly eventTempService: EventTempsService,
   ) {}
 
-  async active(user: UserEntity): Promise<EventEntity | null> {
+  async active(user: UserEntity): Promise<any> {
     const event = await this.repository.findOne({
       where: { user: { id: user.id }, end: null, processing: true },
     });
-    return event || null;
+    return {
+      data: event || null,
+    };
   }
 
   async serverTime() {
-    return dayjs().format('HH:mm:ss YYYY-MM-DD');
+    return { time: dayjs().tz('Asia/Tashkent').format('HH:mm:ss YYYY-MM-DD') };
   }
 
   async start(user: UserEntity, startDto: StartEventDto): Promise<EventEntity> {
