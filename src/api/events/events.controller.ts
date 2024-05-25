@@ -15,7 +15,6 @@ import { StopEventDto } from './dto/stop-event.dto';
 import { RoleEnabled } from '../../decorators/accessRole.decorator';
 import { PaginationDto, PaginationResult } from '../../commons/pagination.dto';
 import { EventEntity } from './entities/event.entity';
-import dayjs from 'dayjs';
 
 @Controller('events')
 @ApiTags('events')
@@ -26,7 +25,7 @@ export class EventsController {
 
   @Get('time')
   async serverTime() {
-    return dayjs().format('HH:mm:ss YYYY-MM-DD');
+    return await this.eventsService.serverTime();
   }
 
   @Get('active-event')
