@@ -2,10 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDateString,
   IsEnum,
-  IsNotEmpty,
+  IsNotEmpty, IsOptional,
   IsString,
-  MinLength,
-} from 'class-validator';
+  MinLength
+} from "class-validator";
 import { Gender } from '../../../enums';
 
 export class RegisterDto {
@@ -14,11 +14,12 @@ export class RegisterDto {
   @ApiProperty({ example: 'John Doe' })
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   @ApiProperty({ example: '2000-02-08' })
   dateOfBirth: Date;
 
+  @IsOptional()
   @IsEnum(Gender)
   @ApiProperty({ example: Gender.MALE })
   gender: Gender;

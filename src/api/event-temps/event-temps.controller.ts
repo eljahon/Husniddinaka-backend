@@ -6,8 +6,9 @@ import {
   Put,
   Param,
   Delete,
-  Query, Req
-} from "@nestjs/common";
+  Query,
+  Req,
+} from '@nestjs/common';
 import { EventTempsService } from './event-temps.service';
 import { CreateEventTempDto } from './dto/create-event-temp.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
