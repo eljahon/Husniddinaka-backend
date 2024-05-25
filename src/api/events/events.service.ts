@@ -22,6 +22,7 @@ export class EventsService {
   async active(user: UserEntity): Promise<any> {
     const event = await this.repository.findOne({
       where: { user: { id: user.id }, end: null, processing: true },
+      relations: ['eventTemp'],
     });
     return {
       data: event || null,
