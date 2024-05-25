@@ -109,4 +109,12 @@ export class EventTempsService {
     await this.repository.delete(id);
     return deleted;
   }
+
+  async updateDuration(id: number, duration: number) {
+    const eventTemp = await this.repository.findOne({
+      where: { id },
+    });
+    const totalDuration = duration + +eventTemp.totalDuration;
+    await this.repository.update(id, { totalDuration });
+  }
 }

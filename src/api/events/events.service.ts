@@ -72,6 +72,10 @@ export class EventsService {
       duration: dayjs(stopDto.end).diff(runningEvent.start, 'second'),
     };
     await this.repository.update(runningEvent.id, data);
+    await this.eventTempService.updateDuration(
+      runningEvent.eventTemp.id,
+      data.duration,
+    );
     return await this.repository.findOne({
       where: { id: runningEvent.id },
     });
