@@ -104,8 +104,12 @@ export class EventsService {
       order: { [query.orderBy]: query.sortBy },
       skip: (query.page - 1) * query.pageSize,
       take: query.pageSize,
-      relations: ['eventTemp'],
-      where: { user: user.id },
+      relations: {
+        eventTemp: true
+      },
+      where: {
+        user: { id: user.id },
+      },
     };
     const [data, total]: any = await this.repository.findAndCount(options);
 
