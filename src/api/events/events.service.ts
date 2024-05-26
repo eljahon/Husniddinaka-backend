@@ -108,7 +108,9 @@ export class EventsService {
       skip: (query.page - 1) * query.pageSize,
       take: query.pageSize,
       relations: {
-        eventTemp: true,
+        eventTemp: {
+          eventCategory: true,
+        },
       },
       where: {
         user: { id: user.id },
