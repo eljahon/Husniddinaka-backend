@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   Query,
+  Req,
 } from '@nestjs/common';
 import { EventCategoriesService } from './event-categories.service';
 import { CreateEventCategoryDto } from './dto/create-event-category.dto';
@@ -28,26 +29,37 @@ export class EventCategoriesController {
 
   @Post()
   @ApiBearerAuth()
-  @RoleEnabled('admin')
-  async create(@Body() createEventCategoryDto: CreateEventCategoryDto) {
-    return await this.eventCategoriesService.create(createEventCategoryDto);
+  @RoleEnabled('admin', 'user')
+  async create(
+    @Req() req,
+    @Body() createEventCategoryDto: CreateEventCategoryDto,
+  ) {
+    return await this.eventCategoriesService.create(
+      req.user,
+      createEventCategoryDto,
+    );
   }
 
   @Get()
+  @ApiBearerAuth()
+  @RoleEnabled('admin', 'user')
   async findAll(
+    @Req() req,
     @Query() paginationQuery: PaginationDto,
   ): Promise<PaginationResult<EventCategoryEntity>> {
-    return await this.eventCategoriesService.findAll(paginationQuery);
+    return await this.eventCategoriesService.findAll(req.user, paginationQuery);
   }
 
   @Put(':id')
   @ApiBearerAuth()
-  @RoleEnabled('admin')
+  @RoleEnabled('admin', 'user')
   async update(
+    @Req() req,
     @Param('id') id: string,
     @Body() updateEventCategoryDto: UpdateEventCategoryDto,
   ): Promise<EventCategoryEntity> {
     return await this.eventCategoriesService.update(
+      req.user,
       +id,
       updateEventCategoryDto,
     );
@@ -55,8 +67,8 @@ export class EventCategoriesController {
 
   @Delete(':id')
   @ApiBearerAuth()
-  @RoleEnabled('admin')
-  remove(@Param('id') id: string) {
-    return this.eventCategoriesService.remove(+id);
+  @RoleEnabled('admin', 'user')
+  remove(@Req() req, @Param('id') id: string) {
+    return this.eventCategoriesService.remove(req.user, +id);
   }
 }

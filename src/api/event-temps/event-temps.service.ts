@@ -79,7 +79,7 @@ export class EventTempsService {
     updateEventTempDto: CreateEventTempDto,
   ) {
     const oldEventTemp = await this.repository.findOne({
-      where: { id },
+      where: { id, user: { id: user.id } },
     });
     if (!oldEventTemp) {
       throw new BadRequestException('Event template not found');
@@ -101,8 +101,10 @@ export class EventTempsService {
     });
   }
 
-  async remove(id: number) {
-    const deleted = await this.repository.findOne({ where: { id } });
+  async remove(user: UserEntity, id: number) {
+    const deleted = await this.repository.findOne({
+      where: { id, user: { id: user.id } },
+    });
     if (!deleted) {
       throw new BadRequestException('Event template not found');
     }

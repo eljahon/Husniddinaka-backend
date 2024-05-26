@@ -9,6 +9,7 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
+  // app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 

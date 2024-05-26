@@ -6,7 +6,6 @@ import { UserEntity } from './api/users/entities/user.entity';
 import { EventCategoriesModule } from './api/event-categories/event-categories.module';
 import { EventTempsModule } from './api/event-temps/event-temps.module';
 import { EventsModule } from './api/events/events.module';
-import { FavoriteEventsModule } from './api/favorite-events/favorite-events.module';
 import { EventCategoryEntity } from './api/event-categories/entities/event-category.entity';
 import { EventEntity } from './api/events/entities/event.entity';
 import { EventTempEntity } from './api/event-temps/entities/event-temp.entity';
@@ -31,8 +30,7 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     EventCategoriesModule,
     EventTempsModule,
-    EventsModule,
-    FavoriteEventsModule,
+    EventsModule
   ],
 })
 export class AppModule {}

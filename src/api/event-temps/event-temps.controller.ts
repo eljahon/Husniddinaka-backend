@@ -53,7 +53,7 @@ export class EventTempsController {
   @Delete(':id')
   @ApiBearerAuth()
   @RoleEnabled('user', 'admin')
-  async remove(@Param('id') id: string) {
-    return await this.eventTempsService.remove(+id);
+  async remove(@Req() req, @Param('id') id: string) {
+    return await this.eventTempsService.remove(req.user, +id);
   }
 }

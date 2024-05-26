@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, Repository } from 'typeorm';
 import { EventCategoryEntity } from './entities/event-category.entity';
 import { PaginationDto, PaginationResult } from '../../commons/pagination.dto';
+import { UserEntity } from '../users/entities/user.entity';
 
 @Injectable()
 export class EventCategoriesService {
@@ -13,25 +14,34 @@ export class EventCategoriesService {
     private readonly repository: Repository<EventCategoryEntity>,
   ) {}
 
-  async create(createEventCategoryDto: CreateEventCategoryDto) {
+  async create(
+    user: UserEntity,
+    createEventCategoryDto: CreateEventCategoryDto,
+  ) {
     const oldEventCategory = await this.repository.findOne({
-      where: { name: createEventCategoryDto.name },
+      where: { name: createEventCategoryDto.name, user: { id: user.id } },
     });
-    console.log(oldEventCategory);
     if (oldEventCategory) {
       throw new BadRequestException('Event category already exists');
     }
-    const eventCategory = this.repository.create(createEventCategoryDto);
+    const eventCategory = this.repository.create({
+      ...createEventCategoryDto,
+      user,
+    });
     return this.repository.save(eventCategory);
   }
 
   async findAll(
+    user: UserEntity,
     query: PaginationDto,
   ): Promise<PaginationResult<EventCategoryEntity>> {
     const options: FindManyOptions = {
       order: { [query.orderBy]: query.sortBy },
       skip: (query.page - 1) * query.pageSize,
       take: query.pageSize,
+      where: {
+        user: { id: user.id },
+      },
     };
 
     const [tasks, total]: any = await this.repository.findAndCount(options);
@@ -53,15 +63,27 @@ export class EventCategoriesService {
     });
   }
 
-  async update(id: number, updateEventCategoryDto: UpdateEventCategoryDto) {
+  async update(
+    user: UserEntity,
+    id: number,
+    updateEventCategoryDto: UpdateEventCategoryDto,
+  ) {
+    const oldEventCategory = await this.repository.findOne({
+      where: { id, user: { id: user.id } },
+    });
+    if (!oldEventCategory) {
+      throw new BadRequestException('Event category not found');
+    }
     await this.repository.update(id, updateEventCategoryDto);
     return await this.repository.findOne({
       where: { id },
     });
   }
 
-  async remove(id: number) {
-    const deleted = await this.repository.findOne({ where: { id } });
+  async remove(user: UserEntity, id: number) {
+    const deleted = await this.repository.findOne({
+      where: { id, user: { id: user.id } },
+    });
     if (!deleted) {
       throw new BadRequestException('Event template not found');
     }
