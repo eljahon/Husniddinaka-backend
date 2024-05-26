@@ -67,9 +67,9 @@ export class EventTempsService {
     };
   }
 
-  async findOne(id: number) {
+  async findOne(user: UserEntity, id: number) {
     return await this.repository.findOne({
-      where: { id },
+      where: { id, user: { id: user.id } },
     });
   }
 
@@ -118,5 +118,10 @@ export class EventTempsService {
     });
     const totalDuration = duration + +eventTemp.totalDuration;
     await this.repository.update(id, { totalDuration });
+  }
+
+  async updateClicks(id: number, clicks: number) {
+    const totalClicks = clicks + 1;
+    await this.repository.update(id, { totalClicks });
   }
 }

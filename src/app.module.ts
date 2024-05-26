@@ -30,7 +30,7 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     EventCategoriesModule,
     EventTempsModule,
-    EventsModule
+    EventsModule,
   ],
 })
 export class AppModule {}

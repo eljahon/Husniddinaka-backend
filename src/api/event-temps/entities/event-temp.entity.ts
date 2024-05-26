@@ -19,6 +19,9 @@ export class EventTempEntity {
   @Column({ default: 0 })
   totalDuration: number;
 
+  @Column({ default: 0 })
+  totalClicks: number;
+
   @ManyToOne(() => EventCategoryEntity, (category) => category.id, {
     onDelete: 'CASCADE',
   })

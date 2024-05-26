@@ -36,11 +36,10 @@ export class EventsService {
   }
 
   async start(user: UserEntity, startDto: StartEventDto): Promise<EventEntity> {
-    // dayjs.extend(utc);
-    // dayjs.extend(timezone);
-    // const now = dayjs().tz('Asia/Tashkent').format('YYYY-MM-DD HH:mm:ss');
-
-    const eventTemp = await this.eventTempService.findOne(startDto.eventTemp);
+    const eventTemp = await this.eventTempService.findOne(
+      user,
+      startDto.eventTemp,
+    );
 
     if (!eventTemp) {
       throw new BadRequestException('Event template not found');
@@ -61,6 +60,10 @@ export class EventsService {
       start: startDto.start,
       eventTemp,
     };
+    await this.eventTempService.updateClicks(
+      eventTemp.id,
+      eventTemp.totalClicks,
+    );
     const event = this.repository.create(data);
     return this.repository.save(event);
   }
@@ -105,7 +108,7 @@ export class EventsService {
       skip: (query.page - 1) * query.pageSize,
       take: query.pageSize,
       relations: {
-        eventTemp: true
+        eventTemp: true,
       },
       where: {
         user: { id: user.id },
