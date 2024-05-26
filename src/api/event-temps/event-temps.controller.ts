@@ -23,7 +23,7 @@ export class EventTempsController {
 
   @Post()
   @ApiBearerAuth()
-  @RoleEnabled('user')
+  @RoleEnabled('user', 'admin')
   @ApiBadRequestResponse({ description: 'Bad request' })
   create(@Req() req, @Body() createEventTempDto: CreateEventTempDto) {
     return this.eventTempsService.create(req.user, createEventTempDto);
@@ -31,7 +31,7 @@ export class EventTempsController {
 
   @Get()
   @ApiBearerAuth()
-  @RoleEnabled('user')
+  @RoleEnabled('user', 'admin')
   async findAll(
     @Req() req,
     @Query() paginationQuery: PaginationDto,
@@ -41,7 +41,7 @@ export class EventTempsController {
 
   @Put(':id')
   @ApiBearerAuth()
-  @RoleEnabled('admin')
+  @RoleEnabled('user', 'admin')
   update(
     @Param('id') id: string,
     @Req() req,
@@ -52,7 +52,7 @@ export class EventTempsController {
 
   @Delete(':id')
   @ApiBearerAuth()
-  @RoleEnabled('admin')
+  @RoleEnabled('user', 'admin')
   async remove(@Param('id') id: string) {
     return await this.eventTempsService.remove(+id);
   }
