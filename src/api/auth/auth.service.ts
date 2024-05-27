@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { hashCompare } from '../../utils';
@@ -14,13 +14,13 @@ export class AuthService {
     const user = await this.usersService.findByUsername(username);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new BadRequestException('username or password incorrect');
     }
 
     const isPasswordValid = await hashCompare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException("Passwordchayiz xato usernamiz to'g'ri");
+      throw new BadRequestException('username or password incorrect');
     }
     const payload = { id: user.id };
     return {
