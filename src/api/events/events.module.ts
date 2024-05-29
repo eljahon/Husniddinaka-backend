@@ -5,6 +5,8 @@ import { EventEntity } from './entities/event.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
 import { EventTempsModule } from '../event-temps/event-temps.module';
+import { ReportsController } from './reports/reports.controller';
+import { ReportsService } from './reports/reports.service';
 
 @Module({
   imports: [
@@ -12,7 +14,7 @@ import { EventTempsModule } from '../event-temps/event-temps.module';
     UsersModule,
     EventTempsModule,
   ],
-  controllers: [EventsController],
-  providers: [EventsService],
+  controllers: [EventsController, ReportsController],
+  providers: [EventsService, ReportsService],
 })
 export class EventsModule {}
