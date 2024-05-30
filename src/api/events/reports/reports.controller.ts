@@ -2,7 +2,7 @@ import { Controller, Get, Query, Req } from '@nestjs/common';
 import { ReportsService } from './reports.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RoleEnabled } from '../../../decorators/accessRole.decorator';
-import { DailyReportDto, EventReportDto } from "./reports.dto";
+import { DailyReportDto, EventReportDto } from './reports.dto';
 
 @ApiTags('reports')
 @ApiBearerAuth()
@@ -19,5 +19,10 @@ export class ReportsController {
   @Get('event')
   async eventReport(@Req() req, @Query() query: EventReportDto) {
     return await this.reportService.eventReport(req.user, query);
+  }
+
+  @Get('all-by-day')
+  async allReportByDay(@Req() req) {
+    return await this.reportService.allReportByDay(req.user);
   }
 }
