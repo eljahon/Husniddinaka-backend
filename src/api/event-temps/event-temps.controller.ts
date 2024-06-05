@@ -15,6 +15,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { PaginationDto, PaginationResult } from '../../commons/pagination.dto';
 import { EventTempEntity } from './entities/event-temp.entity';
 import { RoleEnabled } from '../../decorators/accessRole.decorator';
+import { EventTempQueryDto } from './dto/event-temp.query.dto';
 
 @Controller('event-temps')
 @ApiTags('event-temps')
@@ -34,9 +35,14 @@ export class EventTempsController {
   @RoleEnabled('user', 'admin')
   async findAll(
     @Req() req,
+    @Query() queryDto: EventTempQueryDto,
     @Query() paginationQuery: PaginationDto,
   ): Promise<PaginationResult<EventTempEntity>> {
-    return await this.eventTempsService.findAll(req.user, paginationQuery);
+    return await this.eventTempsService.findAll(
+      req.user,
+      paginationQuery,
+      queryDto,
+    );
   }
 
   @Put(':id')

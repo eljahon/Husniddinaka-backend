@@ -15,6 +15,7 @@ import { StopEventDto } from './dto/stop-event.dto';
 import { RoleEnabled } from '../../decorators/accessRole.decorator';
 import { PaginationDto, PaginationResult } from '../../commons/pagination.dto';
 import { EventEntity } from './entities/event.entity';
+import { SwapEventDto } from "./dto/swap-event.dto";
 
 @Controller('events')
 @ApiTags('events')
@@ -42,6 +43,11 @@ export class EventsController {
   async stopEvent(@Req() req, @Body() stopDto: StopEventDto) {
     return await this.eventsService.stop(req.user, stopDto);
   }
+
+  // @Post('swap')
+  // async swapEvent(@Req() req, @Body() swapDto: SwapEventDto) {
+  //   return await this.eventsService.swap(req.user, swapDto);
+  // }
 
   @Get()
   async findAll(

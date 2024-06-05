@@ -1,11 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateEventTempDto } from './dto/create-event-temp.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindManyOptions, Repository } from 'typeorm';
+import { FindManyOptions, Repository, ILike } from 'typeorm';
 import { EventTempEntity } from './entities/event-temp.entity';
 import { PaginationDto, PaginationResult } from '../../commons/pagination.dto';
 import { EventCategoriesService } from '../event-categories/event-categories.service';
 import { UserEntity } from '../users/entities/user.entity';
+import { EventTempQueryDto } from './dto/event-temp.query.dto';
 
 @Injectable()
 export class EventTempsService {
@@ -44,6 +45,7 @@ export class EventTempsService {
   async findAll(
     user: UserEntity,
     query: PaginationDto,
+    queryDto: EventTempQueryDto,
   ): Promise<PaginationResult<EventTempEntity>> {
     const options: FindManyOptions = {
       order: { [query.orderBy]: query.sortBy },
@@ -52,6 +54,8 @@ export class EventTempsService {
       relations: ['eventCategory'],
       where: {
         user: { id: user.id },
+        title: ILike(`%${queryDto.title}%`),
+        eventCategory: { id: queryDto.eventCategory },
       },
     };
 

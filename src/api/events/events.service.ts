@@ -10,6 +10,7 @@ import * as timezone from 'dayjs/plugin/timezone';
 import { UserEntity } from '../users/entities/user.entity';
 import { EventTempsService } from '../event-temps/event-temps.service';
 import { StopEventDto } from './dto/stop-event.dto';
+// import { SwapEventDto } from './dto/swap-event.dto';
 
 @Injectable()
 export class EventsService {
@@ -98,6 +99,39 @@ export class EventsService {
       where: { id: runningEvent.id },
     });
   }
+
+  // async swap(user: UserEntity, swapDto: SwapEventDto) {
+  //   const eventTemp = await this.eventTempService.findOne(
+  //     user,
+  //     swapDto.startEventTemp,
+  //   );
+  //
+  //   if (!eventTemp) {
+  //     throw new BadRequestException('Event template not found');
+  //   }
+  //
+  //   const runningEvent: EventEntity = await this.repository.findOne({
+  //     where: { user: { id: user.id }, processing: true },
+  //     relations: { eventTemp: true },
+  //   });
+  //   if (!runningEvent) {
+  //     throw new BadRequestException('No running event found');
+  //   }
+  //
+  //   const startData = {
+  //     user: user,
+  //     serverStart: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+  //     start: swapDto.start,
+  //     eventTemp,
+  //   };
+  //
+  //   await this.eventTempService.updateClicks(
+  //     eventTemp.id,
+  //     eventTemp.totalClicks,
+  //   );
+  //   // const event = this.repository.create(startData);
+  //   // return this.repository.save(event);
+  // }
 
   async findAll(
     user: any,
