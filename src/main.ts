@@ -21,6 +21,7 @@ async function bootstrap() {
     .addServer('http://localhost:3000')
     .addServer('https://api.gtm.kebyo.me')
     .addServer('http://54.82.42.110:3000')
+    .addServer('http://65.109.227.207:7878')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
