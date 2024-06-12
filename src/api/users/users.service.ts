@@ -47,10 +47,10 @@ export class UsersService {
     let where:any = {};
     console.log(query);
     if (query?.search) {
-      // where['first_name'] = Like(`%${query.search}`);
-      // where['last_name'] = Like(`%${query.search}`);
-      where['phone_number'] = Like(`%${query.search}`);
-      console.log(where);
+      // where['first_name'] = Like(`%${query.search}%`);
+      // where['last_name'] = Like(`%${query.search}%`);
+      where['phone_number'] = Like(`%${query.search}%`);
+      // console.log(where);
     }
     return await this.repository.find({
       relations: [],
