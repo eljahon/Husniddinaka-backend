@@ -4,9 +4,9 @@ import { IsNotEmpty } from 'class-validator';
 export class AuthDto {
   @IsNotEmpty()
   @ApiProperty({ example: 'johndoe' })
-  username: string;
+  first_name: string;
 
   @IsNotEmpty()
-  @ApiProperty({ example: 'johndoe123' })
-  password: string;
+  @ApiProperty({ example: '+998 ## ### ## ##' })
+  phone_number: string;
 }

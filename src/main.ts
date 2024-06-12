@@ -15,8 +15,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const config = new DocumentBuilder()
-    .setTitle('GTime Management API')
-    .setDescription('Yapon shoiri lalula')
+    .setTitle('Staff Info API')
+    // .setDescription('Yapon shoiri lalula')
     .setVersion('3.0')
     .addServer('http://localhost:3000')
     .addServer('https://api.gtm.kebyo.me')
@@ -31,4 +31,4 @@ async function bootstrap() {
 
   await app.listen(3000);
 }
-bootstrap().then(() => console.log('Server started'));
+bootstrap().then(() => console.log('Server started 3000'));
